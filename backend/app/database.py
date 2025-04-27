@@ -3,8 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Aditya%401211@localhost:5432/grippi_db"
-# Database connection setup
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Aditya%401211@db.railway.app:5432/grippi_db"
+
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
