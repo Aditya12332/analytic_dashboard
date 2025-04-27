@@ -4,22 +4,25 @@ from app.database import engine, SessionLocal
 from app import models
 from app.routers import campaigns
 
+# Create tables if not already present
 models.Base.metadata.create_all(bind=engine)
+
+# FastAPI app initialization
 app = FastAPI()
 
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  
+    allow_origins=["http://localhost:5173"],  # Allow frontend URL
     allow_credentials=True,
-    allow_methods=["*"],  
-    allow_headers=["*"], 
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
 
 # Function to add seed data to the database
 def create_seed_data():
     db = SessionLocal()
-
+    # Check if data already exists to avoid duplication on every startup
     if not db.query(models.Campaign).first():
         campaigns_data = [
             models.Campaign(name="Summer Sale", status="Active", clicks=150, cost=45.99, impressions=1000),
@@ -34,12 +37,14 @@ def create_seed_data():
             models.Campaign(name="Summer Finale", status="Paused", clicks=90, cost=35.00, impressions=800)
         ]
         
+        # Insert campaigns data into the database
         db.add_all(campaigns_data)
         db.commit()
     
     db.close()
 
+# Add seed data when the app starts (only if data does not already exist)
 create_seed_data()
 
-
+# Include the campaigns router
 app.include_router(campaigns.router, prefix="/campaigns", tags=["campaigns"])
