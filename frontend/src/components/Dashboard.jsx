@@ -6,7 +6,7 @@ export default function Dashboard() {
 
   // Fetch campaigns from backend
   useEffect(() => {
-    fetch('http://localhost:8000/campaigns') // Make sure server is running on port 8000
+    fetch('https://analyticdashboard-production.up.railway.app/campaigns')
       .then(res => res.json())
       .then(data => setCampaigns(data))
       .catch(console.error);
