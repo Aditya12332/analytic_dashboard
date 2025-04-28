@@ -8,7 +8,8 @@ from app.routers import campaigns
 models.Base.metadata.create_all(bind=engine)
 
 # FastAPI app initialization
-app = FastAPI()
+app = FastAPI(redirect_slashes=False)
+
 
 # CORS configuration
 app.add_middleware(
