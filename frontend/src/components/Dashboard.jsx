@@ -6,7 +6,7 @@ export default function Dashboard() {
 
   // Fetch campaigns from backend
   useEffect(() => {
-    fetch('https://analyticdashboard-production.up.railway.app/campaigns')
+    fetch('https://analyticdashboard-production.up.railway.app/campaigns/')
       .then(res => res.json())
       .then(data => setCampaigns(data))
       .catch(console.error);
